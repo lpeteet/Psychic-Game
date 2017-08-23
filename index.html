@@ -1,40 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Psychic Game</title>
-    <link rel="stylesheet" type="text/css" href="assets\css\reset.css">
-    <link rel="stylesheet" type="text/css" href="assets\css\style.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="assets/javascript/game.js"></script>
-</head>
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <title>Psychic Game</title>
+      <link rel="stylesheet" type="text/css" href="assets\css\reset.css">
+      <link rel="stylesheet" type="text/css" href="assets\css\style.css">
+      <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+      <!-- <script src="assets/javascript/game.js"></script> -->
+  </head>
 
-<body>
-  <hr>
-  <h1>Psychic Game (Why iSn't This Bold?)</h1>
-  <hr>
-  <br>
-</body>
-  <!-- This <input> field is where I'm getting the name from
-    <label>Enter your name: <input class="name" type="text" value="World"/></label>
-  -->
-  
-  <!-- jQuery Example -->
-  <!-- <h1>jQuery Example</h1>Hello <span class="jqValue">World</span> -->
-
-<!-- <form> -->
-  <div>
-    <p>Guess what letter I am thinking of</p>
-  </div>
-
-  <!-- <input type="text" class="inputValue" autofocus="autofocus" onkeypress="return myKeyPress(event)"/> -->
-  <!-- <input type="text" onkeypress="return myKeyPress(event)" /> -->
-  <!-- Plain Javascript Example -->
-  <!-- <h1>Plain Javascript Example</h1>Wins: <span class="jsValue">World</span> -->
-  
-<!-- </form> -->
+  <body>
+    <hr>
+    <h1>Psychic Game (Why iSn't This Bold?)</h1>
+    <hr>
+    <br>
+    <div>
+      <p>Guess what letter I am thinking of</p>
+      <br>
+      <span id='wins-text'>Wins: </span>
+      <br>
+      <span id='losses-text'>Losses: </span>
+      <br>
+      <span id='guessesleft-text'>Guesses Remaining: </span>
+      <br>
+      <span id='guessessofar-text'>Your Guesses so far: </span>
+      <br>
+    </div>
+    <script type="text/javascript">
+      function downloadJSAtOnload() {
+      var element = document.createElement("script");
+      element.src = "assets/javascript/game.js";
+      document.body.appendChild(element);
+      }
+      if (window.addEventListener)
+        window.addEventListener("load", downloadJSAtOnload, false);
+      else if (window.attachEvent)
+        window.attachEvent("onload", downloadJSAtOnload);
+      else
+        window.onload = downloadJSAtOnload;
+    </script>
+  </body>
 
 </html>
 
