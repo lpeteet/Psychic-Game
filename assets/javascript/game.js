@@ -1,36 +1,39 @@
 /* Global Variables??? */
-var charGuesses = ["z", "p", "o", "x"] //Thought of using Random Generator but wanted to try out New Array Knowledge!
+var charGuesses = ["z", "o", "e", "c"];
 var currGuessesIdx = 0;
 var wins = 0;
 var losses = 0;
+var currentWord = "";
 var guessesAllowed = 9;
 var guessesSoFar = []; //Characters already tried. Initialize to Empty Array
 
-// This function is run whenever the user presses a key.
-//document.onkeyup = function(event) {
-//}
-//OR
 document.addEventListener("keyup", keyUpProcess, false);
-//OR
-//Trying version inside my HTML File with Inline Script
 
-//This version will not fire on Page Load when Event Adds and Calls The function in the above version:
-//document.addEventListener("keyup", function() { CODE HERE; }, false);
-/* window.addEventListener(
-    "DOMContentLoaded", keyUpProcess(event) {
-        //document.getElementById('date').addEventListener("change", validateDate);
-        document.addEventListener("keyup", keyUpProcess, false);
+function EndOfPlay() {
+
+    console.log("End of Guesses Array!");
+    //Reached End of Array so Either End or Play Again
+    var playAgain = confirm("Reached End of My Guesses.  Play Again?") //Can be combined, using for debugging currently
+    if (playAgain) {
+        currGuessesIdx = 0;
+        console.log("New Computer Char: '" + charGuesses[currGuessesIdx] + "'");
+        wins = 0;
+        losses = 0;
+        guessesSoFar = [];
+        return "a"; //Play Again
     }
-);
- */
-//TRY KEYUP!!
-//document.onkeyup = function(event) {
-    
+    else {
+        alert("Thanks for Playing!!");
+        return "x"; //Exit
+    }
+}
+
 function keyUpProcess(e) {
     var keyCode = e.keyCode;
     
     var keynum;
     var inputChar;
+    var retVal;
 
     console.log("charGuesses: '" + charGuesses + "'");
     console.log("currGuessesIdx: '" + currGuessesIdx + "'");
@@ -47,49 +50,40 @@ function keyUpProcess(e) {
     inputChar = inputChar.toLowerCase();
     console.log("inputChar.toLowerCase() = '" + inputChar + "'");
     
-    //debug
-    //alert(inputChar);
-    // DO THE ALGORITHM!!
-    //
     if (inputChar.toLowerCase() == charGuesses[currGuessesIdx]) {
         console.log("Guessed It!!");
         //THEY GUESSED IT!!
         wins += 1;
         //Done with Array?
         if ( (currGuessesIdx + 1) >= charGuesses.length) {
-            console.log("End of Guesses Array!");
-            //Reached End of Array so Either End or Play Again
-            var playAgain = confirm("Reached End of My Guesses.  Play Again?") //Can be combined, using for debugging currently
-            if (playAgain) {
-                currGuessesIdx++;
-                console.log("New Computer Char: '" + charGuesses[currGuessesIdx] + "'");
-                wins = 0;
-                losses = 0;
-                guessesSoFar = [];
+            retVal = EndOfPlay();
+            if (retVal == "x") {
+                //exit();
+                document.location.reload();
             }
-            else {
-                alert("Thanks for Playing!!");
-                return;
-            }
+            //Default is Play Again
         }
-        else {
-            //Guess Array not finished, continue after this win!
-            currGuessesIdx++;
-            guessesSoFar = [];
-            console.log("New Computer Char: '" + charGuesses[currGuessesIdx] + "'");
-        }
+        currGuessesIdx++;
     }
     else {
         //Didn't Guess it, Any Guesses left?
         console.log("Didn't Guess it. Computer: '" + charGuesses[currGuessesIdx] + "'; Your Guess: '" + inputChar.toLowerCase() + "'");
         if ( (guessesSoFar.length + 1) >= guessesAllowed) {
-            //No More Guesses Left, Let them try again
-            console.log("No More Guesses Allowed on this iteration");
-            currGuessesIdx++;
-            guessesSoFar = [];
-            console.log("New Computer Char: '" + charGuesses[currGuessesIdx] + "'");
             //We call this a Loss
             losses++;
+            if ( (currGuessesIdx + 1) >= charGuesses.length) {
+                retVal = EndOfPlay();
+                if (retVal == "x") {
+                    document.location.reload();
+                }
+                //Default is Play Again
+            } else {
+                //No More Guesses Left, Let them try again
+                console.log("No More Guesses Allowed on this iteration");
+                currGuessesIdx++;
+                guessesSoFar = [];
+                console.log("New Computer Char: '" + charGuesses[currGuessesIdx] + "'");
+            }
         }
         else {
             //Guesses Left, Push current Guess and Continue As is!
